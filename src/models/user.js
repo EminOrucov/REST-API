@@ -66,7 +66,7 @@ userSchema.statics.findByCreds = async(email, password) => {
 
 userSchema.methods.createToken = async function(){
     const user = this
-    const token = await jwt.sign({_id : user._id.toString()}, 'terminator')
+    const token = await jwt.sign({_id : user._id.toString()}, process.env.secretKey)
     user.tokens = user.tokens.concat({token})
     await user.save()
     return token
